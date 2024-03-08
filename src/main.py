@@ -4,6 +4,7 @@ from fpdf import FPDF
 from datetime import datetime
 from pathlib import Path
 
+# Connect to the database and retrieve employee data.
 password = "0000"
 connection = psycopg2.connect(database="master", user="postgres", password=password)
 cursor = connection.cursor()
@@ -13,17 +14,22 @@ connection.close()
 
 print(employee_data)
 
+# Get employee performance data from Excel document.
 employee_performance = pd.read_excel("reports\performance\Employee Performance.xlsx").rename(columns={'ID': 'id', 'SCORE': 'score'}).set_index('id')
 
 print()
 print(employee_performance)
 
+# Form a report dataframe combining employee data and performance.
 report_df = pd.merge(employee_data, employee_performance, on='id')
+
+# Sort the dataframe based on the performance score.
 report_df.sort_values(by=['score'], ascending=False, inplace=True)
 
 print()
 print(report_df)
 
+# Output the report to a .pdf file.
 pdf = FPDF()
 pdf.add_page()
 pdf.set_font('Arial', 'B', 16)
