@@ -8,3 +8,13 @@ employee_data = pd.DataFrame(cursor.fetchall(), columns=['id', 'name', 'surname'
 connection.close()
 
 print(employee_data)
+
+employee_performance = pd.read_excel('reports\performance\Employee Performance.xlsx').rename(columns={'ID': 'id', 'SCORE': 'score'})
+
+print()
+print(employee_performance)
+
+report_df = pd.merge(employee_data, employee_performance, on='id')
+
+print()
+print(report_df)
