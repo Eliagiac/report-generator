@@ -15,7 +15,7 @@ connection.close()
 print(employee_data)
 
 # Get employee performance data from Excel document.
-employee_performance = pd.read_excel("reports\performance\Employee Performance.xlsx").rename(columns={'ID': 'id', 'SCORE': 'score'}).set_index('id')
+employee_performance = pd.read_excel("reports\performance\employee-performance.xlsx").rename(columns={'ID': 'id', 'SCORE': 'score'}).set_index('id')
 
 print()
 print(employee_performance)
@@ -40,7 +40,7 @@ pdf.ln(20)
 pdf.set_font('Arial', '', 12)
 
 row_height = 10
-for i, row in report_df.iterrows():
+for i, (_, row) in enumerate(report_df.iterrows()):
     pdf.cell(40, row_height, f"\t{i + 1}. {row['name']} {row['surname']}: {row['score']}")
     pdf.ln(row_height)
 
