@@ -4,7 +4,8 @@ from fpdf import FPDF
 from datetime import datetime
 from pathlib import Path
 
-connection = psycopg2.connect(database="master", user="postgres", password="0000")
+password = "0000"
+connection = psycopg2.connect(database="master", user="postgres", password=password)
 cursor = connection.cursor()
 cursor.execute("SELECT * FROM employees")
 employee_data = pd.DataFrame(cursor.fetchall(), columns=['id', 'name', 'surname']).set_index('id')
