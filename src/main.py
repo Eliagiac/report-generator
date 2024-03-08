@@ -15,6 +15,7 @@ print()
 print(employee_performance)
 
 report_df = pd.merge(employee_data, employee_performance, on='id')
+report_df.sort_values(by=['score'], ascending=False, inplace=True)
 
 print()
 print(report_df)
